@@ -1,6 +1,9 @@
-// Part 3: the events live here, in one array, instead of being typed into App.jsx.
-// Each object has the same property names that EventCard expects as props,
-// plus three fields (dayHeading, dayHeadingStyle, weekday) for the day label.
+// The starting data. App keeps a changeable copy of it in state.
+// Each object has the property names that EventCard expects as props, plus:
+//   dayHeading, dayHeadingStyle, weekday  for the day label on the Events page
+//   isPast                                whether it shows under Upcoming or Past
+//   dateLabel, month, day, address, description  shown on the Event Details page
+// Every event has a stable id that never changes, so React and the router can tell events apart.
 
 export const events = [
   {
@@ -14,6 +17,12 @@ export const events = [
     dayHeading: "Today",
     dayHeadingStyle: "relative",
     weekday: "Wednesday",
+    dateLabel: "Wednesday, August 12",
+    month: "AUG",
+    day: "12",
+    address: "116th Street and Broadway, New York, NY 10027",
+    description:
+      "Join us for pizza, conversation, and a fast showcase of the strange, useful, and delightful projects students have been making. Demos are three minutes long. Bring something you’re proud of, something unfinished, or simply come to see what others are exploring.",
     image: "https://raw.githubusercontent.com/silka-co/ui-design-course-assets/main/images/fractal-party.png",
     imageAlt: "Soft abstract color-field event artwork",
     status: "Invited",
@@ -36,6 +45,12 @@ export const events = [
     dayHeading: "Tomorrow",
     dayHeadingStyle: "relative",
     weekday: "Thursday",
+    dateLabel: "Thursday, August 13",
+    month: "AUG",
+    day: "13",
+    address: "120th Street and Amsterdam Avenue, New York, NY 10027",
+    description:
+      "Three short talks from students who use AI tools in their creative work, followed by an open discussion. Come with a question, a project, or an opinion you want to test.",
     image: "https://raw.githubusercontent.com/silka-co/ui-design-course-assets/main/images/agentics.avif",
     imageAlt: "Dark event poster with an electric abstract motif",
     status: "Going",
@@ -58,6 +73,12 @@ export const events = [
     dayHeading: "Aug 14",
     dayHeadingStyle: "calendar",
     weekday: "Friday",
+    dateLabel: "Friday, August 14",
+    month: "AUG",
+    day: "14",
+    address: "116th Street and Broadway, New York, NY 10027",
+    description:
+      "An easy end to the week on College Walk. Food trucks, lawn games, and music from student bands. Bring a friend or come on your own and meet your neighbors.",
     image: "https://raw.githubusercontent.com/silka-co/ui-design-course-assets/main/images/mama-nyc.avif",
     imageAlt: "Colorful illustrated event poster",
     status: "Invited",
@@ -80,6 +101,12 @@ export const events = [
     dayHeading: "Aug 5",
     dayHeadingStyle: "calendar",
     weekday: "Wednesday",
+    dateLabel: "Wednesday, August 5",
+    month: "AUG",
+    day: "5",
+    address: "2920 Broadway, New York, NY 10027",
+    description:
+      "The first-week mixer for new neighbors. Name tags, snacks, and a short tour of the building. This one has already happened.",
     image: "https://raw.githubusercontent.com/silka-co/ui-design-course-assets/main/images/steel-silicon.avif",
     imageAlt: "Metallic abstract event artwork",
     status: "Attended",

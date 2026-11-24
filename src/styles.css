@@ -1802,3 +1802,30 @@ button.invitation-status:focus-visible {
   gap: 8px;
   margin-top: 4px;
 }
+
+/* Part 7 additions: the Event Details page and the current nav link.
+   The page reuses the Class 5 invitation panel classes. These lines fit them to a page. */
+body:has(.event-details) { background: var(--page); }
+.event-details .invitation-toolbar { height: auto; margin: 0 0 20px; padding: 8px 0 0; border-top: 1px solid var(--line); border-bottom: 0; background: transparent; }
+.panel-close::before { content: ""; width: 8px; height: 8px; position: absolute; top: calc(100% + 4px); left: 14px; visibility: hidden; background: #131517; opacity: 0; transform: rotate(45deg); }
+.panel-close:hover::before, .panel-close:focus-visible::before { visibility: visible; opacity: 1; }
+.panel-close:focus-visible::after { visibility: visible; opacity: 1; transform: translateY(0); }
+.event-details { max-width: 560px; }
+.event-details .invitation-section-label { font-size: 14px; line-height: 20px; }
+.invitation-registration > h2 { background: rgba(19, 21, 23, .035); }
+.invitation-about > h2 { padding-inline: 0; border-bottom: 1px solid var(--line); }
+.registration-status { margin: 14px 14px 0; }
+.invitation-registration .rsvp-card { max-width: none; margin: 0; border: 0; border-radius: 0; }
+
+/* The event page slides in from the right edge, like the Class 5 panel.
+   #root clips it so the slide never adds a sideways scrollbar.
+   Anyone whose computer asks for less motion gets no slide. */
+#root { overflow-x: clip; }
+.event-details { animation: event-details-in 480ms var(--ease-panel); }
+@keyframes event-details-in {
+  from { transform: translateX(100vw); }
+  to { transform: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .event-details { animation: none; }
+}

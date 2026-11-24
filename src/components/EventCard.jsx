@@ -1,17 +1,13 @@
-// Part 5: EventCard keeps no state. It shows the status it is given and, on a click,
+// Part 7: EventCard keeps no state. It shows the status it is given and, on a click on the pill,
 // reports which event and which new status to App through the onStatusChange prop.
+// The card itself is a Link to the event's own page.
+
+import { Link } from "react-router-dom";
 
 export default function EventCard(props) {
-    const { id, title, host, hostAvatar, location, time, dateTime, image, imageAlt, status, attendees, goingCount, onStatusChange, onSelect } = props;
+    const { id, title, host, hostAvatar, location, time, dateTime, image, imageAlt, status, attendees, goingCount, onStatusChange } = props;
 
     const statusClass = status === "Going" ? "invitation-status is-going" : "invitation-status";
-
-    // Part 6: a click on the card reports which event was chosen. preventDefault stops the
-    // link's href from jumping the page. (Part 7 turns this link into a real route.)
-    function handleCardClick(e) {
-        e.preventDefault();
-        onSelect(id);
-    }
 
     function handleStatusClick() {
         onStatusChange(id, status === "Going" ? "Invited" : "Going");
@@ -19,12 +15,11 @@ export default function EventCard(props) {
 
     return (
             <article className="timeline-event-card" id={"event-" + id}>
-              <a
+              <Link
                 className="timeline-event-link"
-                href={"#rsvp-" + id}
+                to={"/events/" + id}
                 aria-labelledby={"event-" + id + "-title"}
-                onClick={handleCardClick}
-              ></a>
+              ></Link>
               <div className="timeline-event-copy">
                 <time dateTime={dateTime}>{time}</time>
                 <h3 id={"event-" + id + "-title"}>{title}</h3>
