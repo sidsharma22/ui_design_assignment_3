@@ -1,25 +1,29 @@
-// Part 3: the Upcoming / Past control. For now `selected` comes in as a prop.
-// Part 4 turns it into state.
+// Part 4: ViewSwitch now owns the selected view as state.
+// The options are buttons, because they do something (change state) rather than go somewhere.
 
-export default function ViewSwitch(props) {
-  const { selected } = props;
+import { useState } from "react";
+
+export default function ViewSwitch() {
+  const [selected, setSelected] = useState("upcoming");
 
   return (
-    <div className="event-view-switcher" aria-label="Event timeframe">
-      <a
+    <div className="event-view-switcher" role="group" aria-label="Event timeframe">
+      <button
+        type="button"
         className={selected === "upcoming" ? "is-selected" : ""}
-        href="#upcoming-events"
-        aria-current={selected === "upcoming" ? "page" : undefined}
+        aria-pressed={selected === "upcoming"}
+        onClick={() => setSelected("upcoming")}
       >
         Upcoming
-      </a>
-      <a
+      </button>
+      <button
+        type="button"
         className={selected === "past" ? "is-selected" : ""}
-        href="#past-events"
-        aria-current={selected === "past" ? "page" : undefined}
+        aria-pressed={selected === "past"}
+        onClick={() => setSelected("past")}
       >
         Past
-      </a>
+      </button>
     </div>
   );
 }

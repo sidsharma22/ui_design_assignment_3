@@ -1,6 +1,19 @@
+// Part 4: each card keeps its own copy of the status in state, so a click changes only this card.
+
+import { useState } from "react";
+
 export default function EventCard(props) {
     const { id, title, host, hostAvatar, location, time, dateTime, image, imageAlt, status, attendees, goingCount } = props;
-    const statusClass = status === "Going" ? "invitation-status is-going" : "invitation-status";
+
+    // The status prop is only the starting value; currentStatus is what can change.
+    const [currentStatus, setCurrentStatus] = useState(status);
+
+    const statusClass = currentStatus === "Going" ? "invitation-status is-going" : "invitation-status";
+
+    function handleStatusClick() {
+        setCurrentStatus(currentStatus === "Going" ? "Invited" : "Going");
+    }
+
     return (
             <article className="timeline-event-card" id={"event-" + id}>
               <a
@@ -20,9 +33,9 @@ export default function EventCard(props) {
                   {location}
                 </p>
                 <div className="status-and-attendees">
-                  <span className={statusClass}>
-                    {status}
-                  </span>
+                  <button type="button" className={statusClass} onClick={handleStatusClick}>
+                    {currentStatus}
+                  </button>
                   <span className="attendee-stack" aria-label={"More than " + goingCount + " attendees"}>
                     <img src={attendees[0]} alt="" />
                     <img src={attendees[1]} alt="" />

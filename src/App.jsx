@@ -44,7 +44,7 @@ export default function App() {
       <main id="events-main" className="events-main">
         <div className="events-title-row">
           <h1>Events</h1>
-          <ViewSwitch selected="upcoming" />
+          <ViewSwitch />
         </div>
 
         <EventList events={events} />

@@ -1718,3 +1718,42 @@ main {
 
 /* The pink link text was 3.9:1 on white. This pink passes 4.5:1. */
 .confirmation-cancel-copy button { color: #c2255c; }
+
+/* Part 4 additions: the view switcher and the status pill become real buttons. */
+.event-view-switcher button {
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--tertiary);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  cursor: pointer;
+  transition: color var(--duration-hover) ease;
+}
+
+.event-view-switcher button.is-selected {
+  color: var(--ink);
+  background: rgba(255, 255, 255, .92);
+  box-shadow: 0 1px 3px rgba(19, 21, 23, .1);
+}
+
+button.invitation-status {
+  position: relative; /* the card's overlay link covers the whole card; this lifts the pill above it */
+  z-index: 3;         /* so a click lands on the button, not on the link underneath */
+  border: 0;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 18px; /* font: inherit also copies the page's taller line height; this keeps the pill the same size as before */
+  cursor: pointer;
+}
+
+.event-view-switcher button:focus-visible,
+button.invitation-status:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
