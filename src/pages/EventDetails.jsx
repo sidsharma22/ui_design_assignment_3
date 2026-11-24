@@ -21,7 +21,12 @@ export default function EventDetails(props) {
     onStatusChange(event.id, "Going");
   }
 
-  const statusClass = event.status === "Going" ? "invitation-status is-going" : "invitation-status";
+  function handleDecline() {
+    onStatusChange(event.id, "Declined");
+  }
+
+  const statusClass =
+    event.status === "Going" ? "invitation-status is-going" : event.status === "Declined" ? "invitation-status is-declined" : "invitation-status";
 
   return (
     <main id="events-main" className="events-main event-details">
@@ -65,11 +70,18 @@ export default function EventDetails(props) {
         <p className="registration-status">
           <span className={statusClass}>{event.status}</span>
         </p>
-        {/* When the person is already Going, a sentence replaces the form. Cancel does nothing yet; Part 8 turns it into Decline. */}
-        {event.status === "Going" ? (
-          <p className="rsvp-card">You are going. See you there.</p>
-        ) : (
-          <RsvpForm event={event} onSubmit={handleRsvpSubmit} onCancel={() => {}} />
+        {/* Three statuses, so three conditions. condition && (...) draws its JSX only when true; exactly one block shows. */}
+        {event.status === "Going" && <p className="rsvp-card">You are going. See you there.</p>}
+        {event.status === "Declined" && (
+          <p className="rsvp-card">
+            You declined this invitation. Changed your mind?{" "}
+            <button type="button" className="secondary-button" onClick={() => onStatusChange(event.id, "Invited")}>
+              Change your response
+            </button>
+          </p>
+        )}
+        {event.status === "Invited" && (
+          <RsvpForm event={event} onSubmit={handleRsvpSubmit} onCancel={handleDecline} cancelLabel="Decline" />
         )}
       </section>
 

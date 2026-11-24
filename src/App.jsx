@@ -77,7 +77,7 @@ export default function App() {
           element={<EventsPage events={shownEvents} view={view} onViewChange={setView} onStatusChange={handleStatusChange} />}
         />
         <Route path="/events/:id" element={<EventDetails events={events} onStatusChange={handleStatusChange} />} />
-        <Route path="/my-events" element={<MyEvents events={events} />} />
+        <Route path="/my-events" element={<MyEvents events={events} onStatusChange={handleStatusChange} />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

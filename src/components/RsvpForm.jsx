@@ -4,7 +4,8 @@
 import { useState } from "react";
 
 export default function RsvpForm(props) {
-  const { event, onSubmit, onCancel } = props;
+  // cancelLabel = "Cancel" is a default: used when the prop is not passed.
+  const { event, onSubmit, onCancel, cancelLabel = "Cancel" } = props;
 
   // One piece of state per field. guests starts as the text "0" because a <select> value is text.
   const [name, setName] = useState("");
@@ -73,7 +74,7 @@ export default function RsvpForm(props) {
 
       <div className="rsvp-actions">
         <button type="submit" className="primary-button">Accept Invite</button>
-        <button type="button" className="secondary-button" onClick={onCancel}>Cancel</button>
+        <button type="button" className="secondary-button" onClick={onCancel}>{cancelLabel}</button>
       </div>
     </form>
   );

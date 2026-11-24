@@ -7,7 +7,9 @@ import { Link } from "react-router-dom";
 export default function EventCard(props) {
     const { id, title, host, hostAvatar, location, time, dateTime, image, imageAlt, status, attendees, goingCount, onStatusChange } = props;
 
-    const statusClass = status === "Going" ? "invitation-status is-going" : "invitation-status";
+    // Three statuses now: Going and Declined each get their own color class (both exist in styles.css).
+    const statusClass =
+        status === "Going" ? "invitation-status is-going" : status === "Declined" ? "invitation-status is-declined" : "invitation-status";
 
     function handleStatusClick() {
         onStatusChange(id, status === "Going" ? "Invited" : "Going");
