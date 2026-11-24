@@ -1,10 +1,8 @@
-// Part 4: ViewSwitch now owns the selected view as state.
-// The options are buttons, because they do something (change state) rather than go somewhere.
+// Part 5: ViewSwitch no longer keeps state. App owns the selected view and hands it down
+// as `selected`, together with `onSelect` (App's setView) so a click can change it.
 
-import { useState } from "react";
-
-export default function ViewSwitch() {
-  const [selected, setSelected] = useState("upcoming");
+export default function ViewSwitch(props) {
+  const { selected, onSelect } = props;
 
   return (
     <div className="event-view-switcher" role="group" aria-label="Event timeframe">
@@ -12,7 +10,7 @@ export default function ViewSwitch() {
         type="button"
         className={selected === "upcoming" ? "is-selected" : ""}
         aria-pressed={selected === "upcoming"}
-        onClick={() => setSelected("upcoming")}
+        onClick={() => onSelect("upcoming")}
       >
         Upcoming
       </button>
@@ -20,7 +18,7 @@ export default function ViewSwitch() {
         type="button"
         className={selected === "past" ? "is-selected" : ""}
         aria-pressed={selected === "past"}
-        onClick={() => setSelected("past")}
+        onClick={() => onSelect("past")}
       >
         Past
       </button>

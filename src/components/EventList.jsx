@@ -3,10 +3,10 @@
 import EventCard from "./EventCard.jsx";
 
 export default function EventList(props) {
-  const { events } = props;
+  const { events, view, onStatusChange } = props;
 
   return (
-    <section className="event-timeline" id="upcoming-events" aria-label="Upcoming events">
+    <section className="event-timeline" id={view + "-events"} aria-label={view + " events"}>
       {events.map((event) => (
         // key goes on the outermost element map() returns; the id is stable, the position is not.
         <div className="event-day-group" key={event.id}>
@@ -15,8 +15,9 @@ export default function EventList(props) {
             <p>{event.weekday}</p>
           </header>
           <span className="timeline-dot" aria-hidden="true"></span>
-          {/* The spread passes every property of the event object as a prop. */}
-          <EventCard {...event} />
+          {/* The spread passes every property of the event object as a prop.
+              onStatusChange is only passed through: this list is a courier between App and the cards. */}
+          <EventCard {...event} onStatusChange={onStatusChange} />
         </div>
       ))}
     </section>

@@ -1,11 +1,31 @@
-// Part 3: App holds the page frame. The events come from src/data/events.js
-// and are drawn by EventList; ViewSwitch is the Upcoming / Past control.
+// Part 5: App is the one place that holds state. The events and the selected view
+// live here and are passed down as props. No other component keeps its own copy.
 
+import { useState } from "react";
 import EventList from "./components/EventList.jsx";
 import ViewSwitch from "./components/ViewSwitch.jsx";
-import { events } from "./data/events.js";
+import { events as startingEvents } from "./data/events.js";
 
 export default function App() {
+  // The data is imported as startingEvents so the state variable can be called events.
+  const [events, setEvents] = useState(startingEvents);
+  const [view, setView] = useState("upcoming");
+
+  // The only place the events change. React notices a new array and new objects,
+  // not edits made in place, so this builds copies and never assigns to event.status.
+  function handleStatusChange(id, newStatus) {
+    const nextEvents = events.map((event) => {
+      if (event.id === id) {
+        return { ...event, status: newStatus }; // a new object: every property copied, status replaced
+      }
+      return event; // every other event is returned unchanged
+    });
+    setEvents(nextEvents);
+  }
+
+  // Not state: worked out from events and view every time App runs, so it is always up to date.
+  const shownEvents = events.filter((event) => (view === "past" ? event.isPast : !event.isPast));
+
   return (
     <>
       <a className="skip-link" href="#events-main">Skip to main content</a>
@@ -44,10 +64,10 @@ export default function App() {
       <main id="events-main" className="events-main">
         <div className="events-title-row">
           <h1>Events</h1>
-          <ViewSwitch />
+          <ViewSwitch selected={view} onSelect={setView} />
         </div>
 
-        <EventList events={events} />
+        <EventList events={shownEvents} view={view} onStatusChange={handleStatusChange} />
         </main>
     </>
   );

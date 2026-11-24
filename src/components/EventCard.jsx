@@ -1,17 +1,13 @@
-// Part 4: each card keeps its own copy of the status in state, so a click changes only this card.
-
-import { useState } from "react";
+// Part 5: EventCard keeps no state. It shows the status it is given and, on a click,
+// reports which event and which new status to App through the onStatusChange prop.
 
 export default function EventCard(props) {
-    const { id, title, host, hostAvatar, location, time, dateTime, image, imageAlt, status, attendees, goingCount } = props;
+    const { id, title, host, hostAvatar, location, time, dateTime, image, imageAlt, status, attendees, goingCount, onStatusChange } = props;
 
-    // The status prop is only the starting value; currentStatus is what can change.
-    const [currentStatus, setCurrentStatus] = useState(status);
-
-    const statusClass = currentStatus === "Going" ? "invitation-status is-going" : "invitation-status";
+    const statusClass = status === "Going" ? "invitation-status is-going" : "invitation-status";
 
     function handleStatusClick() {
-        setCurrentStatus(currentStatus === "Going" ? "Invited" : "Going");
+        onStatusChange(id, status === "Going" ? "Invited" : "Going");
     }
 
     return (
@@ -34,7 +30,7 @@ export default function EventCard(props) {
                 </p>
                 <div className="status-and-attendees">
                   <button type="button" className={statusClass} onClick={handleStatusClick}>
-                    {currentStatus}
+                    {status}
                   </button>
                   <span className="attendee-stack" aria-label={"More than " + goingCount + " attendees"}>
                     <img src={attendees[0]} alt="" />
