@@ -4,12 +4,15 @@
 import { useState } from "react";
 import EventList from "./components/EventList.jsx";
 import ViewSwitch from "./components/ViewSwitch.jsx";
+import RsvpForm from "./components/RsvpForm.jsx";
 import { events as startingEvents } from "./data/events.js";
 
 export default function App() {
   // The data is imported as startingEvents so the state variable can be called events.
   const [events, setEvents] = useState(startingEvents);
   const [view, setView] = useState("upcoming");
+  // Part 6: which card was clicked. null means no form is showing.
+  const [selectedId, setSelectedId] = useState(null);
 
   // The only place the events change. React notices a new array and new objects,
   // not edits made in place, so this builds copies and never assigns to event.status.
@@ -23,7 +26,16 @@ export default function App() {
     setEvents(nextEvents);
   }
 
-  // Not state: worked out from events and view every time App runs, so it is always up to date.
+  // Called by the form with { name, email, guests, note }. For now it logs them,
+  // marks the event Going, and closes the form.
+  function handleRsvpSubmit(rsvp) {
+    console.log("RSVP for", selectedId, rsvp);
+    handleStatusChange(selectedId, "Going");
+    setSelectedId(null);
+  }
+
+  // Not state: worked out from events, view and selectedId every time App runs, so they are always up to date.
+  const selectedEvent = events.find((event) => event.id === selectedId) ?? null;
   const shownEvents = events.filter((event) => (view === "past" ? event.isPast : !event.isPast));
 
   return (
@@ -67,7 +79,11 @@ export default function App() {
           <ViewSwitch selected={view} onSelect={setView} />
         </div>
 
-        <EventList events={shownEvents} view={view} onStatusChange={handleStatusChange} />
+        <EventList events={shownEvents} view={view} onStatusChange={handleStatusChange} onSelect={setSelectedId} />
+        {/* Conditional render: nothing is drawn while selectedEvent is null. */}
+        {selectedEvent && (
+          <RsvpForm event={selectedEvent} onSubmit={handleRsvpSubmit} onCancel={() => setSelectedId(null)} />
+        )}
         </main>
     </>
   );

@@ -2,9 +2,16 @@
 // reports which event and which new status to App through the onStatusChange prop.
 
 export default function EventCard(props) {
-    const { id, title, host, hostAvatar, location, time, dateTime, image, imageAlt, status, attendees, goingCount, onStatusChange } = props;
+    const { id, title, host, hostAvatar, location, time, dateTime, image, imageAlt, status, attendees, goingCount, onStatusChange, onSelect } = props;
 
     const statusClass = status === "Going" ? "invitation-status is-going" : "invitation-status";
+
+    // Part 6: a click on the card reports which event was chosen. preventDefault stops the
+    // link's href from jumping the page. (Part 7 turns this link into a real route.)
+    function handleCardClick(e) {
+        e.preventDefault();
+        onSelect(id);
+    }
 
     function handleStatusClick() {
         onStatusChange(id, status === "Going" ? "Invited" : "Going");
@@ -14,8 +21,9 @@ export default function EventCard(props) {
             <article className="timeline-event-card" id={"event-" + id}>
               <a
                 className="timeline-event-link"
-                href={"#event-" + id}
+                href={"#rsvp-" + id}
                 aria-labelledby={"event-" + id + "-title"}
+                onClick={handleCardClick}
               ></a>
               <div className="timeline-event-copy">
                 <time dateTime={dateTime}>{time}</time>

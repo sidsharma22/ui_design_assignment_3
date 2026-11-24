@@ -1757,3 +1757,48 @@ button.invitation-status:focus-visible {
   outline: 2px solid var(--ink);
   outline-offset: 2px;
 }
+
+/* Part 6 additions: the RSVP form sits in a card under the list. */
+.rsvp-card {
+  max-width: 560px;
+  margin-top: 28px;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: white;
+}
+
+.rsvp-card h2 {
+  margin: 0 0 4px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.rsvp-card .rsvp-intro {
+  margin: 0 0 16px;
+  color: var(--secondary);
+  font-size: 14px;
+}
+
+.field textarea {
+  width: 100%;
+  min-height: 72px;
+  padding: 9px 11px;
+  border: 1px solid rgba(19, 21, 23, .16);
+  border-radius: 10px;
+  background: white;
+  font: inherit;
+  resize: vertical;
+}
+
+.field .hint {
+  margin: 0;
+  color: var(--tertiary);
+  font-size: 12px;
+}
+
+.rsvp-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}

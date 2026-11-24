@@ -3,7 +3,7 @@
 import EventCard from "./EventCard.jsx";
 
 export default function EventList(props) {
-  const { events, view, onStatusChange } = props;
+  const { events, view, onStatusChange, onSelect } = props;
 
   return (
     <section className="event-timeline" id={view + "-events"} aria-label={view + " events"}>
@@ -17,7 +17,7 @@ export default function EventList(props) {
           <span className="timeline-dot" aria-hidden="true"></span>
           {/* The spread passes every property of the event object as a prop.
               onStatusChange is only passed through: this list is a courier between App and the cards. */}
-          <EventCard {...event} onStatusChange={onStatusChange} />
+          <EventCard {...event} onStatusChange={onStatusChange} onSelect={onSelect} />
         </div>
       ))}
     </section>
