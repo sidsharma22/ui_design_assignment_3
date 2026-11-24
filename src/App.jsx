@@ -54,7 +54,20 @@ export default function App() {
               <p>Wednesday</p>
             </header>
             <span className="timeline-dot" aria-hidden="true"></span>
-            <EventCard />
+            <EventCard
+              id="studio-night-4"
+              title="Studio Night Demo Party #4"
+              host="Maya Chen"
+              hostAvatar="https://raw.githubusercontent.com/silka-co/ui-design-course-assets/main/images/fractal-party.png"
+              location="Design Lab"
+              time="6:30 PM"
+              dateTime="2026-08-12T18:30:00-04:00"
+              image="https://raw.githubusercontent.com/silka-co/ui-design-course-assets/main/images/fractal-party.png"
+              imageAlt="Soft abstract color-field event artwork"
+              status="Invited"
+              attendees={["https://raw.githubusercontent.com/silka-co/ui-design-course-assets/main/images/cafe-cursor.avif", "https://raw.githubusercontent.com/silka-co/ui-design-course-assets/main/images/creative-edge.avif", "https://raw.githubusercontent.com/silka-co/ui-design-course-assets/main/images/steel-silicon.avif"]}
+              goingCount={42}
+            />
           </div>
 
           <div className="event-day-group">
@@ -63,44 +76,20 @@ export default function App() {
               <p>Thursday</p>
             </header>
             <span className="timeline-dot" aria-hidden="true"></span>
-            <article className="timeline-event-card" id="event-creative-ai">
-              <a
-                className="timeline-event-link"
-                href="#event-creative-ai"
-                data-action="open-invitation"
-                data-event-id="creative-ai-forum"
-                aria-labelledby="event-creative-ai-title"
-                aria-controls="studio-night-invitation"
-                aria-expanded="false"
-                aria-haspopup="dialog"
-              ></a>
-              <div className="timeline-event-copy">
-                <time dateTime="2026-08-13T18:00:00-04:00">6:00 PM</time>
-                <h3 id="event-creative-ai-title">Campus Creative AI Forum</h3>
-                <p className="event-host avatar-stack-row">
-                  <span className="avatar-stack" aria-hidden="true">
-                    <img src="https://raw.githubusercontent.com/silka-co/ui-design-course-assets/main/images/cafe-cursor.avif" alt="" />
-                    <img src="https://raw.githubusercontent.com/silka-co/ui-design-course-assets/main/images/creative-edge.avif" alt="" />
-                    <img src="https://raw.githubusercontent.com/silka-co/ui-design-course-assets/main/images/mama-nyc.avif" alt="" />
-                  </span>
-                  <span>By Jordan Lee, Priya Shah &amp; Alex Kim</span>
-                </p>
-                <p className="event-place">
-                  <img src="https://raw.githubusercontent.com/silka-co/ui-design-course-assets/main/icons/map-pin.svg" alt="" />
-                  Innovation Space
-                </p>
-                <div className="status-and-attendees">
-                  <span className="invitation-status is-going" data-status-for="creative-ai-forum">Going</span>
-                  <span className="attendee-stack" aria-label="More than 300 attendees">
-                    <img src="https://raw.githubusercontent.com/silka-co/ui-design-course-assets/main/images/startup-founders.avif" alt="" />
-                    <img src="https://raw.githubusercontent.com/silka-co/ui-design-course-assets/main/images/steel-silicon.avif" alt="" />
-                    <img src="https://raw.githubusercontent.com/silka-co/ui-design-course-assets/main/images/agentics.avif" alt="" />
-                    <span>+318</span>
-                  </span>
-                </div>
-              </div>
-              <img className="timeline-event-image" src="https://raw.githubusercontent.com/silka-co/ui-design-course-assets/main/images/agentics.avif" alt="Dark event poster with an electric abstract motif" />
-            </article>
+            <EventCard
+              id="creative-ai-forum"
+              title="Campus Creative AI Forum"
+              host="Jordan Lee, Priya Shah & Alex Kim"
+              hostAvatar="https://raw.githubusercontent.com/silka-co/ui-design-course-assets/main/images/cafe-cursor.avif"
+              location="Innovation Space"
+              time="6:00 PM"
+              dateTime="2026-08-13T18:00:00-04:00"
+              image="https://raw.githubusercontent.com/silka-co/ui-design-course-assets/main/images/agentics.avif"
+              imageAlt="Dark event poster with an electric abstract motif"
+              status="Going"
+              attendees={["https://raw.githubusercontent.com/silka-co/ui-design-course-assets/main/images/startup-founders.avif", "https://raw.githubusercontent.com/silka-co/ui-design-course-assets/main/images/steel-silicon.avif", "https://raw.githubusercontent.com/silka-co/ui-design-course-assets/main/images/agentics.avif"]}
+              goingCount={318}
+            />
           </div>
 
           <div className="event-day-group">
@@ -109,41 +98,20 @@ export default function App() {
               <p>Friday</p>
             </header>
             <span className="timeline-dot" aria-hidden="true"></span>
-            <article className="timeline-event-card" id="event-friday-social">
-              <a
-                className="timeline-event-link"
-                href="#event-friday-social"
-                data-action="open-invitation"
-                data-event-id="friday-night-social"
-                aria-labelledby="event-friday-social-title"
-                aria-controls="studio-night-invitation"
-                aria-expanded="false"
-                aria-haspopup="dialog"
-              ></a>
-              <div className="timeline-event-copy">
-                <time dateTime="2026-08-14T18:30:00-04:00">6:30 PM</time>
-                <h3 id="event-friday-social-title">Friday Night Social</h3>
-                <p className="event-host">
-                  <span className="host-avatar"><img src="https://raw.githubusercontent.com/silka-co/ui-design-course-assets/main/images/mama-nyc.avif" alt="" /></span>
-                  By Campus Neighbors
-                </p>
-                <p className="event-place">
-                  <img src="https://raw.githubusercontent.com/silka-co/ui-design-course-assets/main/icons/map-pin.svg" alt="" />
-                  College Walk
-                </p>
-                <div className="status-and-attendees">
-                  <span className="invitation-status" data-status-for="friday-night-social">Invited</span>
-                  <span className="attendee-stack" aria-label="More than 80 attendees">
-                    <img src="https://raw.githubusercontent.com/silka-co/ui-design-course-assets/main/images/mama-nyc.avif" alt="" />
-                    <img src="https://raw.githubusercontent.com/silka-co/ui-design-course-assets/main/images/startup-founders.avif" alt="" />
-                    <img src="https://raw.githubusercontent.com/silka-co/ui-design-course-assets/main/images/steel-silicon.avif" alt="" />
-                    <img src="https://raw.githubusercontent.com/silka-co/ui-design-course-assets/main/images/agentics.avif" alt="" />
-                    <span>+88</span>
-                  </span>
-                </div>
-              </div>
-              <img className="timeline-event-image" src="https://raw.githubusercontent.com/silka-co/ui-design-course-assets/main/images/mama-nyc.avif" alt="Colorful illustrated event poster" />
-            </article>
+            <EventCard
+              id="friday-night-social"
+              title="Friday Night Social"
+              host="Campus Neighbors"
+              hostAvatar="https://raw.githubusercontent.com/silka-co/ui-design-course-assets/main/images/mama-nyc.avif"
+              location="College Walk"
+              time="6:30 PM"
+              dateTime="2026-08-14T18:30:00-04:00"
+              image="https://raw.githubusercontent.com/silka-co/ui-design-course-assets/main/images/mama-nyc.avif"
+              imageAlt="Colorful illustrated event poster"
+              status="Invited"
+              attendees={["https://raw.githubusercontent.com/silka-co/ui-design-course-assets/main/images/mama-nyc.avif", "https://raw.githubusercontent.com/silka-co/ui-design-course-assets/main/images/startup-founders.avif", "https://raw.githubusercontent.com/silka-co/ui-design-course-assets/main/images/steel-silicon.avif"]}
+              goingCount={88}
+            />
           </div>
         </section>
         </main>
