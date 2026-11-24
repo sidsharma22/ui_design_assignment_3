@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>Class 17 starting project</title>
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+        color: #aaaaaa;
+      }
+    pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+    div.sourceCode
+      {   }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+    code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+    code span.at { color: #7d9029; } /* Attribute */
+    code span.bn { color: #40a070; } /* BaseN */
+    code span.bu { } /* BuiltIn */
+    code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+    code span.ch { color: #4070a0; } /* Char */
+    code span.cn { color: #880000; } /* Constant */
+    code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+    code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+    code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+    code span.dt { color: #902000; } /* DataType */
+    code span.dv { color: #40a070; } /* DecVal */
+    code span.er { color: #ff0000; font-weight: bold; } /* Error */
+    code span.ex { } /* Extension */
+    code span.fl { color: #40a070; } /* Float */
+    code span.fu { color: #06287e; } /* Function */
+    code span.im { } /* Import */
+    code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+    code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+    code span.op { color: #666666; } /* Operator */
+    code span.ot { color: #007020; } /* Other */
+    code span.pp { color: #bc7a00; } /* Preprocessor */
+    code span.sc { color: #4070a0; } /* SpecialChar */
+    code span.ss { color: #bb6688; } /* SpecialString */
+    code span.st { color: #4070a0; } /* String */
+    code span.va { color: #19177c; } /* Variable */
+    code span.vs { color: #4070a0; } /* VerbatimString */
+    code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+  </style>
+    <style>body{font:16px/1.55 -apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;max-width:760px;margin:40px auto;padding:0 20px;color:#131517}
+  code{font:14px Menlo,Consolas,monospace;background:#f3f4f6;padding:1px 4px;border-radius:4px}
+  pre{background:#f3f4f6;padding:12px 14px;border-radius:8px;overflow-x:auto}pre code{padding:0;background:none}
+  details{border:1px solid #d6d9de;border-radius:8px;padding:8px 14px;margin:16px 0}summary{cursor:pointer}
+  table{border-collapse:collapse}td,th{border-bottom:1px solid #d6d9de;padding:6px 10px;text-align:left;vertical-align:top}
+  h1{font-size:28px}h2{font-size:21px;margin-top:32px}h3{font-size:17px}
+  </style>
+</head>
+<body>
+<h1 id="class-17-starting-project">Class 17 starting project</h1>
+<p>This folder is where everyone starts. It begins <strong>Class 17 — Part 1: Your First Component</strong>.</p>
+<p><strong>Where you left off.</strong> This is the Events page from Classes 2 and 5, written as JSX. The invitation panel from Class 5 is not in it yet. Part 7 brings it back as each event’s own page.</p>
+<p><strong>Set up once:</strong> in StackBlitz, create a new <strong>React JavaScript</strong> project of your own (New project → Frontend → React JavaScript). Then replace what it starts with:</p>
+<ol type="1">
+<li>Open <code>Part 1 start — Your First Component</code> in Finder, select everything inside it, and drag it onto the project’s file list, at the top level. Not onto a folder: if the files land inside another folder, the preview can’t find them.</li>
+<li>If StackBlitz asks, choose to replace the files.</li>
+<li>Click Save at the top left of StackBlitz. Then reload the whole browser tab (Cmd+R on a Mac, Ctrl+R on Windows). StackBlitz installs what the project needs, and the preview shows the Events page you built in Classes 2 and 5.</li>
+</ol>
+<p>Keep this instructions page open in a browser tab. From here on you work in <code>src</code>, in your own project.</p>
+<h2 id="what-is-already-here">What is already here</h2>
+<ul>
+<li><code>index.html</code> has one empty <code>&lt;div id="root"&gt;</code>. React draws the whole page inside it. You never edit this file.</li>
+<li><code>main.jsx</code> starts React and puts <code>&lt;App /&gt;</code> on the page. You never edit this file either.</li>
+<li><code>App.jsx</code> is the Events page from Class 5, written as JSX. It is one big component. Look at it before you change it.</li>
+<li><code>styles.css</code> is the same stylesheet as Class 5, unchanged.</li>
+</ul>
+<h2 id="what-changed-between-html-and-jsx">What changed between HTML and JSX</h2>
+<p>JSX is HTML written inside JavaScript, with a few spelling changes because some HTML words are already taken in JavaScript.</p>
+<ul>
+<li><code>class="…"</code> is now <code>className="…"</code>, because <code>class</code> is a JavaScript keyword.</li>
+<li><code>datetime="…"</code> on <code>&lt;time&gt;</code> is now <code>dateTime="…"</code>.</li>
+<li>Every <code>&lt;img … /&gt;</code> closes itself. HTML forgave a missing <code>/</code>; JSX does not.</li>
+<li>A comment inside JSX is <code>{/* like this */}</code>, not <code>&lt;!-- like this --&gt;</code>.</li>
+<li>A component returns one element. <code>App</code> returns <code>&lt;&gt;…&lt;/&gt;</code>, an empty wrapper called a fragment, so the header and the main section can sit side by side.</li>
+</ul>
+<h2 id="your-next-task-part-1-your-first-component">Your next task — Part 1: Your First Component</h2>
+<p>Take the first event card out of <code>App.jsx</code> and make it a component of its own, <code>EventCard</code>, in its own file. For now it always shows the same event. The page must look exactly the same afterwards. The goal is to see that a component is a function that returns a piece of the page, and that a page is made by calling those functions.</p>
+<p><strong>Done when:</strong> <code>src/components/EventCard.jsx</code> exists, <code>App.jsx</code> imports it and uses <code>&lt;EventCard /&gt;</code> once where the first card was, and the page looks exactly as it did.</p>
+<h3 id="additional-reading-think-before-coding">Additional reading: think before coding</h3>
+<ul>
+<li>Find the three <code>&lt;article className="timeline-event-card"&gt;</code> blocks in <code>App.jsx</code>. Which lines belong to the first card, and which lines belong to the day label around it?</li>
+<li>A component is a JavaScript function that returns JSX. What has to be true about its name for React to treat it as a component rather than an HTML tag?</li>
+<li><code>App</code> can only use <code>EventCard</code> if it can see it. Which two lines connect the two files, and which file does each line go in?</li>
+<li>If the page looks the same after the change, how will you prove to yourself that the component is really being used?</li>
+</ul>
+<p><strong>Read more:</strong> <a href="https://react.dev/learn/your-first-component">Your First Component</a>, in the official React guide.</p>
+<h3 id="how-to-approach-it">How to approach it</h3>
+<ol type="1">
+<li>Make a folder <code>src/components</code>, and in it a file <code>EventCard.jsx</code>.</li>
+<li>In that file, write a function named <code>EventCard</code> that returns the first card’s <code>&lt;article&gt;…&lt;/article&gt;</code> block. Cut the block from <code>App.jsx</code> and paste it inside the <code>return ( … )</code>. Export the function as the default export.</li>
+<li>In <code>App.jsx</code>, where the block used to be, write <code>&lt;EventCard /&gt;</code>.</li>
+<li>At the top of <code>App.jsx</code>, import <code>EventCard</code> from <code>./components/EventCard.jsx</code>.</li>
+<li>Save, and check the preview. Then change one word in <code>EventCard.jsx</code>, save, and watch the page change. Change it back.</li>
+</ol>
+<details>
+<p><summary><strong>Exact code</strong> — open this only if you are still stuck after trying</summary></p>
+<p><code>src/components/EventCard.jsx</code>, a new file. The <code>&lt;article&gt;</code> block is the first card from <code>App.jsx</code>, unchanged:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode jsx"><code class="sourceCode javascriptreact"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="co">// Part 1: the first card, now a component of its own.</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a><span class="co">// For now it always shows the same event. Part 2 makes it take props.</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a><span class="im">export</span> <span class="im">default</span> <span class="kw">function</span> <span class="fu">EventCard</span>() {</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>  <span class="cf">return</span> (</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>    <span class="kw">&lt;article</span> <span class="ot">className</span><span class="op">=</span><span class="st">&quot;timeline-event-card&quot;</span> <span class="ot">id</span><span class="op">=</span><span class="st">&quot;event-studio-night&quot;</span><span class="kw">&gt;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>      …the whole first card, exactly as it was in App.jsx…</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>    <span class="kw">&lt;/article&gt;</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>  )<span class="op">;</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true"></a>}</span></code></pre></div>
+<p><strong>What this code does.</strong> <code>export default function EventCard()</code> defines a component: a function whose name starts with a capital letter and that returns JSX. <code>export default</code> makes it the thing another file gets when it imports this file. The <code>return ( … )</code> wraps the JSX so it can run over several lines.</p>
+<p>In <code>App.jsx</code>, the first line of the file:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode jsx"><code class="sourceCode javascriptreact"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="im">import</span> EventCard <span class="im">from</span> <span class="st">&quot;./components/EventCard.jsx&quot;</span><span class="op">;</span></span></code></pre></div>
+<p>And where the first <code>&lt;article&gt;…&lt;/article&gt;</code> block was, inside the first <code>event-day-group</code>:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode jsx"><code class="sourceCode javascriptreact"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a><span class="fu">&lt;EventCard</span> <span class="fu">/&gt;</span></span></code></pre></div>
+<p><strong>What this code does.</strong> The <code>import</code> line gives this file a name, <code>EventCard</code>, for whatever the other file exported by default. <code>&lt;EventCard /&gt;</code> calls that function and puts what it returns at this spot in the page. The capital letter is how JSX knows this is a component and not an HTML tag.</p>
+<p>The complete files are in the next folder, <code>Part 2 start — Props</code>.</p>
+</details>
+<h2 id="success-check">Success check</h2>
+<p>The preview looks exactly as it did before. <code>App.jsx</code> is shorter by one card, and <code>src/components/EventCard.jsx</code> exists and is used once. Changing a word in <code>EventCard.jsx</code> changes the page. Point to the function, the <code>export</code>, the <code>import</code> and the <code>&lt;EventCard /&gt;</code> tag, and say what each one does.</p>
+<h2 id="points">Points</h2>
+<p>What this Part earns in Individual Assignment 3 is in the table in the top-level <code>README.md</code> of the zip, and in the assignment itself.</p>
+</body>
+</html>
