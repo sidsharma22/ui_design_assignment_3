@@ -1,5 +1,7 @@
-// Part 7: one event's own page, at /events/:id. It is the Class 5 invitation panel as a page.
+// Part 10: one event's page, with focus moved on purpose. Read and test.
+// A ref is a handle on a real element on the page, so code can call .focus() on it.
 
+import { useEffect, useRef, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import RsvpForm from "../components/RsvpForm.jsx";
 import NotFound from "./NotFound.jsx";
@@ -7,11 +9,29 @@ import NotFound from "./NotFound.jsx";
 export default function EventDetails(props) {
   const { events, onStatusChange } = props;
 
-  // useParams() returns one property per :placeholder in the route path.
+  // useParams reads the :id part of the route. The name matches the Route path in App.
   const { id } = useParams();
   const event = events.find((e) => e.id === id);
 
-  // find() gives undefined when nothing matches. Stop here before anything reads event.title.
+  // Two handles: one on the heading, one on the confirmation message.
+  const headingRef = useRef(null);
+  const confirmationRef = useRef(null);
+  const [justConfirmed, setJustConfirmed] = useState(false);
+
+  // After navigation: once the page has drawn, put keyboard focus on its heading,
+  // so a keyboard or screen-reader user starts at the top of the new page, not where they were.
+  // useEffect runs code after the render. Part 11 explains it fully.
+  useEffect(() => {
+    headingRef.current?.focus();
+  }, [id]);  // (Part 11 adds loadState here, so focus also happens once the events arrive.)
+
+  // After confirmation: when the "You are going" message appears, focus it.
+  useEffect(() => {
+    if (justConfirmed) {
+      confirmationRef.current?.focus();
+    }
+  }, [justConfirmed]);
+
   if (!event) {
     return <NotFound />;
   }
@@ -19,6 +39,7 @@ export default function EventDetails(props) {
   function handleRsvpSubmit(rsvp) {
     console.log("RSVP for", event.id, rsvp);
     onStatusChange(event.id, "Going");
+    setJustConfirmed(true);
   }
 
   function handleDecline() {
@@ -38,7 +59,7 @@ export default function EventDetails(props) {
       <img className="invitation-hero" src={event.image} alt={event.imageAlt} />
 
       <div className="invitation-heading">
-        <h1 className="invitation-title">{event.title}</h1>
+        <h1 className="invitation-title" ref={headingRef} tabIndex={-1}>{event.title}</h1>
         <p className="type-body">
           <span className="host-avatar"><img src={event.hostAvatar} alt="" /></span>
           By {event.host}
@@ -70,8 +91,11 @@ export default function EventDetails(props) {
         <p className="registration-status">
           <span className={statusClass}>{event.status}</span>
         </p>
-        {/* Three statuses, so three conditions. condition && (...) draws its JSX only when true; exactly one block shows. */}
-        {event.status === "Going" && <p className="rsvp-card">You are going. See you there.</p>}
+        {event.status === "Going" && (
+          <p className="rsvp-card" ref={confirmationRef} tabIndex={-1}>
+            You are going. See you there.
+          </p>
+        )}
         {event.status === "Declined" && (
           <p className="rsvp-card">
             You declined this invitation. Changed your mind?{" "}

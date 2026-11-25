@@ -1,49 +1,61 @@
-// Part 7: App holds the state and the page frame (the header). Routes draws whichever
-// page the address asks for. The pages get the state they need as props.
+// Part 10 finished. Read and test.
+// New in Part 10: a live region. Whatever text is put in it is read aloud by a screen reader.
+// App owns the state and the header. Routes picks a page from the address:
+// / is Events, /events/:id is one event, /my-events is My Events, anything else is Not Found.
 
-import { useState } from "react";
 import { Routes, Route, Link, NavLink } from "react-router-dom";
 import EventsPage from "./pages/EventsPage.jsx";
 import EventDetails from "./pages/EventDetails.jsx";
 import MyEvents from "./pages/MyEvents.jsx";
 import NotFound from "./pages/NotFound.jsx";
+import { useState } from "react";
 import { events as startingEvents } from "./data/events.js";
 
 export default function App() {
-  // The data is imported as startingEvents so the state variable can be called events.
+  // The working copy of the events. Changing it redraws every component that shows it.
   const [events, setEvents] = useState(startingEvents);
   const [view, setView] = useState("upcoming");
+  const [announcement, setAnnouncement] = useState("");
 
-  // The only place the events change. React notices a new array and new objects,
-  // not edits made in place, so this builds copies and never assigns to event.status.
+  // Copy, then set. A new array, with a new object for the one event that changed.
+  // The original array and object are never edited. The id never changes.
   function handleStatusChange(id, newStatus) {
     const nextEvents = events.map((event) => {
       if (event.id === id) {
-        return { ...event, status: newStatus }; // a new object: every property copied, status replaced
+        return { ...event, status: newStatus };
       }
-      return event; // every other event is returned unchanged
+      return event;
     });
     setEvents(nextEvents);
+
+    // Say what just happened, in words. The live region below reads this out.
+    const changed = events.find((event) => event.id === id);
+    const words = { Going: "you are going.", Declined: "you declined.", Invited: "back to invited." };
+    setAnnouncement(changed.title + ": " + (words[newStatus] ?? newStatus));
   }
 
-  // Not state: worked out from events and view every time App runs, so it is always up to date.
-  const shownEvents = events.filter((event) => (view === "past" ? event.isPast : !event.isPast));
-
-  // NavLink calls this with isActive, and uses whatever string comes back as the class name.
+  // NavLink calls this with isActive, so the current page's link gets the is-current style from Class 2.
   function navClass({ isActive }) {
     return isActive ? "events-nav-link is-current" : "events-nav-link";
   }
 
+  // Only the events for the selected view are handed to the Events page.
+  const shownEvents = events.filter((event) => (view === "past" ? event.isPast : !event.isPast));
+
   return (
     <>
       <a className="skip-link" href="#events-main">Skip to main content</a>
+
+      {/* The live region. role="status" means: announce changes here, without interrupting. */}
+      <p className="status-announcement" role="status" aria-live="polite">
+        {announcement}
+      </p>
 
       <header className="events-site-header">
         <Link className="events-home-mark" to="/" aria-label="Events home">
           <img src="https://raw.githubusercontent.com/silka-co/ui-design-course-assets/main/icons/star-four-fill.svg" alt="" />
         </Link>
         <nav className="events-primary-nav" aria-label="Primary navigation">
-          {/* end stops "/" from counting as the current page on every address */}
           <NavLink className={navClass} to="/" end>
             <img src="https://raw.githubusercontent.com/silka-co/ui-design-course-assets/main/icons/ticket.svg" width="18" height="18" alt="" aria-hidden="true" />
             <span>Events</span>
@@ -70,12 +82,8 @@ export default function App() {
         </nav>
       </header>
 
-      {/* Routes draws the first Route whose path matches the address. :id is a placeholder; * matches anything, so it goes last. */}
       <Routes>
-        <Route
-          path="/"
-          element={<EventsPage events={shownEvents} view={view} onViewChange={setView} onStatusChange={handleStatusChange} />}
-        />
+        <Route path="/" element={<EventsPage events={shownEvents} view={view} onViewChange={setView} onStatusChange={handleStatusChange} />} />
         <Route path="/events/:id" element={<EventDetails events={events} onStatusChange={handleStatusChange} />} />
         <Route path="/my-events" element={<MyEvents events={events} onStatusChange={handleStatusChange} />} />
         <Route path="*" element={<NotFound />} />

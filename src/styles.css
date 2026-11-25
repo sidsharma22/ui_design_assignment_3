@@ -1840,3 +1840,8 @@ body:has(.event-details) { background: var(--page); }
 .field input:disabled, .field select:disabled, .field textarea:disabled { background: #f3f3f3; color: var(--tertiary); }
 .primary-button:disabled, .secondary-button:disabled { opacity: .6; cursor: default; }
 .form-state { margin: 0; color: var(--tertiary); font-size: 12px; }
+
+/* Part 10 additions: the live region, shown as a slim status line when it has text. */
+.status-announcement { margin: 0; padding: 0 24px; min-height: 0; color: var(--secondary); font-size: 13px; }
+.status-announcement:empty { display: none; }
+h1:focus-visible, .rsvp-card:focus-visible, .form-error:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; border-radius: 6px; }

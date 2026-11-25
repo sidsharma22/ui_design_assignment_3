@@ -1,4 +1,4 @@
-// Part 9: validation and the RSVP states. Read and test; you do not write this.
+// Parts 9 and 10: validation, the RSVP states, and where focus goes. Read and test.
 //
 // The form can be in one of five states, kept in formState:
 //   "selected"   the form is open for the selected event, nothing sent yet
@@ -8,7 +8,7 @@
 //   "failed"     it did not work, and the person can try again
 // Every state is shown in words on the page, never by color alone.
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 // Returns an object of error messages, one per field with a problem. Empty object = all good.
 export function validate({ name, email, guests }) {
@@ -53,6 +53,10 @@ export default function RsvpForm(props) {
   const [formState, setFormState] = useState("selected");
   const [errors, setErrors] = useState({});
 
+  // Part 10: handles on the three fields that can be invalid, and on the summary message.
+  const fieldRefs = { name: useRef(null), email: useRef(null), guests: useRef(null) };
+  const summaryRef = useRef(null);
+
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -60,6 +64,9 @@ export default function RsvpForm(props) {
     setErrors(found);
     if (Object.keys(found).length > 0) {
       setFormState("invalid");
+      // After a validation failure: focus the first field with a problem, in page order.
+      const firstInvalid = ["name", "email", "guests"].find((field) => found[field]);
+      fieldRefs[firstInvalid].current.focus();
       return;
     }
 
@@ -73,6 +80,13 @@ export default function RsvpForm(props) {
       setFormState("failed");
     }
   }
+
+  // After a failure: once the message is on the page, focus it so it is read and seen.
+  useEffect(() => {
+    if (formState === "failed") {
+      summaryRef.current?.focus();
+    }
+  }, [formState]);
 
   const isSubmitting = formState === "submitting";
 
@@ -91,7 +105,7 @@ export default function RsvpForm(props) {
         </p>
       )}
       {formState === "failed" && (
-        <p className="form-error" id="rsvp-summary">
+        <p className="form-error" id="rsvp-summary" ref={summaryRef} tabIndex={-1}>
           We couldn’t send your RSVP. Nothing was lost. Press Try again.
         </p>
       )}
@@ -100,6 +114,7 @@ export default function RsvpForm(props) {
         <label htmlFor="rsvp-name">Your name</label>
         <input
           id="rsvp-name"
+          ref={fieldRefs.name}
           type="text"
           value={name}
           onChange={(e) => setName(e.target.value)}
@@ -116,6 +131,7 @@ export default function RsvpForm(props) {
         <p className="hint" id="rsvp-email-hint">We only use it to send your ticket.</p>
         <input
           id="rsvp-email"
+          ref={fieldRefs.email}
           type="email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -132,6 +148,7 @@ export default function RsvpForm(props) {
         <p className="hint" id="rsvp-guests-hint">How many people you are bringing, not counting you. Up to 3.</p>
         <select
           id="rsvp-guests"
+          ref={fieldRefs.guests}
           value={guests}
           onChange={(e) => setGuests(e.target.value)}
           aria-invalid={errors.guests ? "true" : undefined}
