@@ -1,12 +1,12 @@
-// Part 8: My Events. The same events as the Events page, sorted into three groups by status.
+// Part 8: My Events. One page, built from the same events state as the Events page.
+// Three groups by status. A group with nothing in it says so instead of showing nothing.
 
 import EventList from "../components/EventList.jsx";
 
 export default function MyEvents(props) {
-  const { events, onStatusChange } = props;
+  const { events, onStatusChange, loadState } = props;
 
-  // Not state. The groups are three views of one list, worked out from events every time this
-  // page draws, so they can never disagree with the Events page.
+  // Three lists worked out from the one shared list. Not state: it follows events automatically.
   const groups = [
     { status: "Going", events: events.filter((event) => event.status === "Going") },
     { status: "Invited", events: events.filter((event) => event.status === "Invited") },
@@ -19,11 +19,12 @@ export default function MyEvents(props) {
         <h1>My Events</h1>
       </div>
 
-      {groups.map((group) => (
+      {loadState === "loading" && <p className="load-state" role="status">Loading…</p>}
+      {loadState === "error" && <p className="load-error">We couldn’t load your events. Go back to Events and try again.</p>}
+      {(loadState === "ready" || loadState === "empty") && groups.map((group) => (
         <section className="my-events-group" key={group.status} aria-labelledby={"group-" + group.status.toLowerCase()}>
           <h2 id={"group-" + group.status.toLowerCase()}>{group.status}</h2>
           {group.events.length === 0 ? (
-            // An empty group is a real state of the page, not an error, so it says what the group is for.
             <p className="empty-state">Nothing here yet. Events you mark as {group.status.toLowerCase()} will show up here.</p>
           ) : (
             <EventList events={group.events} view={group.status.toLowerCase()} onStatusChange={onStatusChange} />

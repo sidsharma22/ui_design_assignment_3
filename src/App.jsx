@@ -1,5 +1,6 @@
-// Part 10 finished. Read and test.
-// New in Part 10: a live region. Whatever text is put in it is read aloud by a screen reader.
+// Part 11 finished. Read and test.
+// New in Part 11: the events are loaded, not imported. While they load, the page says so.
+// If loading fails, the page says so and offers Try again.
 // App owns the state and the header. Routes picks a page from the address:
 // / is Events, /events/:id is one event, /my-events is My Events, anything else is Not Found.
 
@@ -8,12 +9,32 @@ import EventsPage from "./pages/EventsPage.jsx";
 import EventDetails from "./pages/EventDetails.jsx";
 import MyEvents from "./pages/MyEvents.jsx";
 import NotFound from "./pages/NotFound.jsx";
-import { useState } from "react";
-import { events as startingEvents } from "./data/events.js";
+import { useEffect, useState } from "react";
+import { loadEvents } from "./data/loadEvents.js";
 
 export default function App() {
-  // The working copy of the events. Changing it redraws every component that shows it.
-  const [events, setEvents] = useState(startingEvents);
+  // The events start empty and arrive from loadEvents(). loadState says where we are:
+  // "loading" | "ready" | "empty" | "error"
+  const [events, setEvents] = useState([]);
+  const [loadState, setLoadState] = useState("loading");
+
+  // Ask for the events. Called once when the page first draws, and again on Try again.
+  async function load() {
+    setLoadState("loading");
+    try {
+      const data = await loadEvents();
+      setEvents(data);
+      setLoadState(data.length === 0 ? "empty" : "ready");
+    } catch (error) {
+      setLoadState("error");
+    }
+  }
+
+  // useEffect runs its function after the render. The empty [] means: only after the first one.
+  // Loading data is a side effect; it does not belong inside the render itself.
+  useEffect(() => {
+    load();
+  }, []);
   const [view, setView] = useState("upcoming");
   const [announcement, setAnnouncement] = useState("");
 
@@ -83,9 +104,9 @@ export default function App() {
       </header>
 
       <Routes>
-        <Route path="/" element={<EventsPage events={shownEvents} view={view} onViewChange={setView} onStatusChange={handleStatusChange} />} />
-        <Route path="/events/:id" element={<EventDetails events={events} onStatusChange={handleStatusChange} />} />
-        <Route path="/my-events" element={<MyEvents events={events} onStatusChange={handleStatusChange} />} />
+        <Route path="/" element={<EventsPage events={shownEvents} view={view} onViewChange={setView} onStatusChange={handleStatusChange} loadState={loadState} onRetry={load} />} />
+        <Route path="/events/:id" element={<EventDetails events={events} onStatusChange={handleStatusChange} loadState={loadState} />} />
+        <Route path="/my-events" element={<MyEvents events={events} onStatusChange={handleStatusChange} loadState={loadState} />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>

@@ -7,7 +7,7 @@ import RsvpForm from "../components/RsvpForm.jsx";
 import NotFound from "./NotFound.jsx";
 
 export default function EventDetails(props) {
-  const { events, onStatusChange } = props;
+  const { events, onStatusChange, loadState } = props;
 
   // useParams reads the :id part of the route. The name matches the Route path in App.
   const { id } = useParams();
@@ -18,12 +18,12 @@ export default function EventDetails(props) {
   const confirmationRef = useRef(null);
   const [justConfirmed, setJustConfirmed] = useState(false);
 
-  // After navigation: once the page has drawn, put keyboard focus on its heading,
+  // After navigation (and again once the events have loaded): put keyboard focus on the heading,
   // so a keyboard or screen-reader user starts at the top of the new page, not where they were.
   // useEffect runs code after the render. Part 11 explains it fully.
   useEffect(() => {
     headingRef.current?.focus();
-  }, [id]);  // (Part 11 adds loadState here, so focus also happens once the events arrive.)
+  }, [id, loadState]);
 
   // After confirmation: when the "You are going" message appears, focus it.
   useEffect(() => {
@@ -31,6 +31,15 @@ export default function EventDetails(props) {
       confirmationRef.current?.focus();
     }
   }, [justConfirmed]);
+
+  // While the events are still loading there is nothing to find yet. Say so instead of "not found".
+  if (loadState === "loading") {
+    return (
+      <main id="events-main" className="events-main">
+        <p className="load-state" role="status">Loading…</p>
+      </main>
+    );
+  }
 
   if (!event) {
     return <NotFound />;

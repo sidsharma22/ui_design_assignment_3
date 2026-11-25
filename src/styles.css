@@ -1845,3 +1845,8 @@ body:has(.event-details) { background: var(--page); }
 .status-announcement { margin: 0; padding: 0 24px; min-height: 0; color: var(--secondary); font-size: 13px; }
 .status-announcement:empty { display: none; }
 h1:focus-visible, .rsvp-card:focus-visible, .form-error:focus-visible { outline: 2px solid var(--ink); outline-offset: 4px; border-radius: 6px; }
+
+/* Part 11 additions: loading and error states. */
+.load-state { margin: 24px 0; color: var(--secondary); }
+.load-error { margin: 24px 0; padding: 16px 18px; border: 1px solid #e3b3b3; border-radius: 12px; background: #fff6f6; display: grid; gap: 12px; justify-items: start; }
+.load-error p { margin: 0; }
