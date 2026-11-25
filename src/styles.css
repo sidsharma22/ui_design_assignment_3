@@ -1834,3 +1834,9 @@ body:has(.event-details) { background: var(--page); }
 .my-events-group { margin-top: 28px; }
 .my-events-group h2 { margin: 0 0 12px; font-size: 18px; font-weight: 600; }
 .empty-state { margin: 0; padding: 16px 18px; border: 1px dashed var(--line); border-radius: 12px; color: var(--secondary); }
+
+/* Part 9 additions: invalid fields and the small state label used while testing. */
+.field [aria-invalid="true"] { border-color: #9d3030; box-shadow: 0 0 0 2px rgba(157, 48, 48, .15); }
+.field input:disabled, .field select:disabled, .field textarea:disabled { background: #f3f3f3; color: var(--tertiary); }
+.primary-button:disabled, .secondary-button:disabled { opacity: .6; cursor: default; }
+.form-state { margin: 0; color: var(--tertiary); font-size: 12px; }
