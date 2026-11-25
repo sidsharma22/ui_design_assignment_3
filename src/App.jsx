@@ -37,13 +37,23 @@ export default function App() {
   }, []);
   const [view, setView] = useState("upcoming");
   const [announcement, setAnnouncement] = useState("");
+  const [search, setSearch] = useState("");
+
 
   // Copy, then set. A new array, with a new object for the one event that changed.
   // The original array and object are never edited. The id never changes.
   function handleStatusChange(id, newStatus) {
     const nextEvents = events.map((event) => {
+      let newCount = event.goingCount;
+      let oldStatus = event.status
       if (event.id === id) {
-        return { ...event, status: newStatus };
+
+        if (oldStatus !== "Going" && newStatus === "Going") {
+          newCount = event.goingCount + 1;
+        } else if (oldStatus === "Going" && newStatus !== "Going") {
+          newCount = event.goingCount - 1;
+        }
+        return { ...event, status: newStatus, goingCount: newCount };
       }
       return event;
     });
@@ -60,8 +70,12 @@ export default function App() {
     return isActive ? "events-nav-link is-current" : "events-nav-link";
   }
 
+  function matchesSearch(event, query) {
+  // Return true if the event's title contains the query, ignoring case.
+    return event.title.toLowerCase().includes(query.toLowerCase());
+  }
   // Only the events for the selected view are handed to the Events page.
-  const shownEvents = events.filter((event) => (view === "past" ? event.isPast : !event.isPast));
+  const shownEvents = events.filter((event) => (view === "past" ? event.isPast : !event.isPast) && matchesSearch(event, search));
 
   return (
     <>
@@ -104,7 +118,7 @@ export default function App() {
       </header>
 
       <Routes>
-        <Route path="/" element={<EventsPage events={shownEvents} view={view} onViewChange={setView} onStatusChange={handleStatusChange} loadState={loadState} onRetry={load} />} />
+        <Route path="/" element={<EventsPage events={shownEvents} view={view} onViewChange={setView} onStatusChange={handleStatusChange} loadState={loadState} onRetry={load} search={search} onSearchChange={setSearch} />} />
         <Route path="/events/:id" element={<EventDetails events={events} onStatusChange={handleStatusChange} loadState={loadState} />} />
         <Route path="/my-events" element={<MyEvents events={events} onStatusChange={handleStatusChange} loadState={loadState} />} />
         <Route path="*" element={<NotFound />} />
