@@ -34,7 +34,7 @@ export default function EventsPage(props) {
           <button type="button" className="secondary-button" onClick={onRetry}>Try again</button>
         </div>
       )}
-      {loadState === "ready" && events.length === 0 && ( <p className="empty-state">No events match your search.</p> )}
+      {loadState === "ready" && events.length === 0 && ( <p className="empty-state">No events match “{search}”.</p> )}
       {loadState === "ready" && events.length > 0 && ( <EventList events={events} view={view} onStatusChange={onStatusChange} /> )}
     </main>
   );
